@@ -1,0 +1,11 @@
+# created by Iran R. Roman <iran@ccrma.stanford.edu>
+NUMPY_SEED: 0
+TRAIN:
+  ENABLE: True
+TEST:
+  ENABLE: True
+DESSEO:
+  FS: 100
+  RND_INIT: 
+    ENABLE: True
+    F0_CENTER: 5

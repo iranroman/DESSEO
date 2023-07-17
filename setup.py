@@ -1,3 +1,4 @@
+# created by Iran R. Roman <iran@ccrma.stanford.edu>
 from setuptools import setup
 import imp
 
@@ -30,7 +31,8 @@ setup(
             "Topic :: Theoretical Neuroscience :: Sound/Audio :: Oscillatory synchronization",
         ],
     install_requires=[
-        'torchdiffeq>=0.2.3'
+        'torchdiffeq>=0.2.3',
+        'pyyaml>=6.0',
     ],
 )
 
