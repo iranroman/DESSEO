@@ -1,7 +1,8 @@
 # created by Iran R. Roman <iran@ccrma.stanford.edu>
-NUMPY_SEED: 0
+NUMPY_SEED: 1 # must be greater than 0
 TRAIN:
   ENABLE: True
+  LR: 0.001
 TEST:
   ENABLE: True
 DESSEO:
@@ -9,3 +10,14 @@ DESSEO:
   RND_INIT: 
     ENABLE: True
     F0_CENTER: 5
+DATASET:
+  NAME: 'Golumbic'
+  PATH: 'Golumbic_speech_data'
+  PERCENT_VAL: 20
+  LOWPASS_CUTOFF: 10 # Hertz
+  DIFF: True
+  STANDARDIZE: True
+DATA_LOADER:
+  NUM_WORKERS: 12
+SOLVER:
+  PATIENCE_LIM: 20

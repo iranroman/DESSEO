@@ -11,25 +11,30 @@ class desseo(torch.nn.Module):
 
         if cfg.DESSEO.RND_INIT.ENABLE:
             f0_center = cfg.DESSEO.RND_INIT.F0_CENTER
-            self.alpha = torch.nn.Parameter(torch.randn(1))
-            self.beta1 = torch.nn.Parameter(torch.randn(1))
-            self.beta2 = torch.nn.Parameter(torch.randn(1))
-            self.f0 = torch.nn.Parameter(torch.randn(1) + f0_center)
-            self.cs = torch.nn.Parameter(torch.randn(1))
-            self.cr = torch.nn.Parameter(torch.randn(1))
-            self.cw = torch.nn.Parameter(torch.randn(1))
+            self.alpha = torch.randn(1)
+            self.beta1 = torch.randn(1)
+            self.beta2 = torch.randn(1)
+            self.f0 = torch.randn(1) + f0_center
+            self.cs = torch.randn(1)
+            self.cr = torch.randn(1)
+            self.cw = torch.randn(1)
         else:
-            self.alpha = torch.nn.Parameter(cfg.DESSEO.alpha1)
-            self.beta1 = torch.nn.Parameter(cfg.DESSEO.beta1)
-            self.beta2 = torch.nn.Parameter(cfg.DESSEO.beta2)
-            self.f0 = torch.nn.Parameter(cfg.DESSEO.f0)
-            self.cs = torch.nn.Parameter(cfg.DESSEO.cs)
-            self.cr = torch.nn.Parameter(cfg.DESSEO.cr)
-            self.cw = torch.nn.Parameter(cfg.DESSEO.cw)
+            self.alpha = cfg.DESSEO.alpha1
+            self.beta1 = cfg.DESSEO.beta1
+            self.beta2 = cfg.DESSEO.beta2
+            self.f0 = cfg.DESSEO.f0
+            self.cs = cfg.DESSEO.cs
+            self.cr = cfg.DESSEO.cr
+            self.cw = cfg.DESSEO.cw
+        self.alpha = torch.nn.Parameter(self.alpha.cuda())
+        self.beta1 = torch.nn.Parameter(self.beta1.cuda())
+        self.beta2 = torch.nn.Parameter(self.beta2.cuda())
+        self.f0    = torch.nn.Parameter(self.f0.cuda())
+        self.cs    = torch.nn.Parameter(self.cs.cuda())
+        self.cr    = torch.nn.Parameter(self.cr.cuda())
+        self.cw    = torch.nn.Parameter(self.cw.cuda())
 
-        self.fs = cfg.FS
-        #self.t = cfg.MAX_DUR
-        #self.x = x
+        self.fs = cfg.DESSEO.FS
 
     def forward(self, t, states):
 
