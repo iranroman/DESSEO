@@ -10,14 +10,14 @@ class desseo(torch.nn.Module):
         super().__init__()
 
         if cfg.DESSEO.RND_INIT.ENABLE:
-            f0_center = cfg.DESSEO.RND_INIT.F0_CENTER
+            f0_center = cfg.DESSEO.RND_INIT.F0_INIT_CENT
             self.alpha = torch.randn(1)
             self.beta1 = torch.randn(1)
-            self.beta2 = torch.randn(1)
+            self.beta2 = -torch.abs(torch.randn(1))
             self.f0 = torch.randn(1) + f0_center
-            self.cs = torch.randn(1)
-            self.cr = torch.randn(1)
-            self.cw = torch.randn(1)
+            self.cs = torch.abs(torch.randn(1))
+            self.cr = torch.abs(torch.randn(1))
+            self.cw = torch.abs(torch.randn(1))
         else:
             self.alpha = cfg.DESSEO.alpha1
             self.beta1 = cfg.DESSEO.beta1

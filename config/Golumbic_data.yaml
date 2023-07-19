@@ -2,14 +2,13 @@
 NUMPY_SEED: 1 # must be greater than 0
 TRAIN:
   ENABLE: True
-  LR: 0.001
 TEST:
   ENABLE: True
 DESSEO:
   FS: 100
   RND_INIT: 
     ENABLE: True
-    F0_CENTER: 5
+    F0_INIT_CENT: 5
 DATASET:
   NAME: 'Golumbic'
   PATH: 'Golumbic_speech_data'
@@ -21,3 +20,4 @@ DATA_LOADER:
   NUM_WORKERS: 12
 SOLVER:
   PATIENCE_LIM: 20
+  LR: 0.001
