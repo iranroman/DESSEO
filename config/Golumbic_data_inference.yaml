@@ -6,13 +6,13 @@ TEST:
   ENABLE: True
 DESSEO:
   FS: 100
-  ALPHA: -1.066
-  BETA1: -0.140
-  BETA2: -0.120
-  F0: 6.345
-  CS: 0.444
-  CR: 0.473
-  CW: 0.886
+  ALPHA: -2.137
+  BETA1: 1.729
+  BETA2: -1.231
+  F0: 4.792
+  CS: 0.043
+  CR: 0.400
+  CW: 0.479
   RND_INIT: 
     ENABLE: False
 DATASET:
