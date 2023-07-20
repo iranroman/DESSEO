@@ -33,12 +33,12 @@ class golumbic_data(torch.utils.data.Dataset):
         all_env = [f for f in all_files if f[-1]=='t' and f[0] in ['1','2']]
         all_env.sort()
         nenv = len(all_env)
-        rand_idx = np.random.choice(nenv,nenv,replace=False)
+        _idx = list(range(nenv))
         if split == 'train':
-            rand_idx = rand_idx[int(nenv*perc_val/100):]
+            _idx = _idx[int(nenv*perc_val/100):]
         elif split == 'val':
-            rand_idx = rand_idx[-int(nenv*perc_val/100):]
-        return [all_env[i] for i in rand_idx]
+            _idx = _idx[-int(nenv*perc_val/100):]
+        return [all_env[i] for i in _idx]
 
     def load_mat_files(self):
         data = [scipy.io.loadmat(os.path.join(self.path_to_files,f)) for f in self.filenames]

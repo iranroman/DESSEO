@@ -5,3 +5,7 @@ To train the model run:
 python tools/run.py --config config/Golumbic_data.yaml          
 ```
 
+To run inference and generate plots with model results run:
+```bash
+python tools/run.py --config config/Golumbic_data.yaml          
+```

@@ -11,7 +11,7 @@ class desseo(torch.nn.Module):
 
         if cfg.DESSEO.RND_INIT.ENABLE:
             f0_center = cfg.DESSEO.RND_INIT.F0_INIT_CENT
-            self.alpha = torch.randn(1)
+            self.alpha = torch.tensor(0.0)
             self.beta1 = torch.randn(1)
             self.beta2 = -torch.abs(torch.randn(1))
             self.f0 = torch.randn(1) + f0_center
@@ -19,13 +19,13 @@ class desseo(torch.nn.Module):
             self.cr = torch.abs(torch.randn(1))
             self.cw = torch.abs(torch.randn(1))
         else:
-            self.alpha = cfg.DESSEO.alpha1
-            self.beta1 = cfg.DESSEO.beta1
-            self.beta2 = cfg.DESSEO.beta2
-            self.f0 = cfg.DESSEO.f0
-            self.cs = cfg.DESSEO.cs
-            self.cr = cfg.DESSEO.cr
-            self.cw = cfg.DESSEO.cw
+            self.alpha = torch.tensor(cfg.DESSEO.ALPHA)
+            self.beta1 = torch.tensor(cfg.DESSEO.BETA1)
+            self.beta2 = torch.tensor(cfg.DESSEO.BETA2)
+            self.f0 = torch.tensor(cfg.DESSEO.F0)
+            self.cs = torch.tensor(cfg.DESSEO.CS)
+            self.cr = torch.tensor(cfg.DESSEO.CR)
+            self.cw = torch.tensor(cfg.DESSEO.CW)
         self.alpha = torch.nn.Parameter(self.alpha.cuda())
         self.beta1 = torch.nn.Parameter(self.beta1.cuda())
         self.beta2 = torch.nn.Parameter(self.beta2.cuda())

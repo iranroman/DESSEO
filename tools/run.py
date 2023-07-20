@@ -4,7 +4,7 @@ import yaml
 
 from desseo.utils.parser import parse_args, load_config
 
-#from test_net import test
+from eval_net import test
 from train_net import train
 #from visualization import visualize
 

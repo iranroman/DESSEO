@@ -1,0 +1,27 @@
+# created by Iran R. Roman <iran@ccrma.stanford.edu>
+NUMPY_SEED: 1 # must be greater than 0
+TRAIN:
+  ENABLE: False
+TEST:
+  ENABLE: True
+DESSEO:
+  FS: 100
+  ALPHA: -1.066
+  BETA1: -0.140
+  BETA2: -0.120
+  F0: 6.345
+  CS: 0.444
+  CR: 0.473
+  CW: 0.886
+  RND_INIT: 
+    ENABLE: False
+DATASET:
+  NAME: 'Golumbic'
+  PATH: 'Golumbic_speech_data'
+  PERCENT_VAL: 20
+  LOWPASS_CUTOFF: 10 # Hertz
+  DIFF: True
+  STANDARDIZE: True
+DATA_LOADER:
+  NUM_WORKERS: 12
+OUT_PLOTS: 'plots'

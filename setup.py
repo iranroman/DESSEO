@@ -33,6 +33,7 @@ setup(
     install_requires=[
         'torchdiffeq>=0.2.3',
         'pyyaml>=6.0',
+        'matplotlib',
     ],
 )
 
