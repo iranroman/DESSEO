@@ -7,5 +7,5 @@ python tools/run.py --config config/Golumbic_data.yaml
 
 To run inference and generate plots with model results run:
 ```bash
-python tools/run.py --config config/Golumbic_data.yaml          
+python tools/run.py --config config/Golumbic_data_inferene.yaml          
 ```

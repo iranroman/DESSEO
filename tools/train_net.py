@@ -58,14 +58,14 @@ def train_epoch(
         R = torch.abs(circ_mean)
         loss = -torch.log(torch.mean(R))
 
-        print('loss:\t',"{:.4f}".format(float(loss.detach())),'( R:',"{:.4f}".format(float(torch.mean(R).detach())),')')
+        print('loss:\t',"{:.10f}".format(float(loss.detach())),'( R:',"{:.10f}".format(float(torch.mean(R).detach())),')')
         if np.isnan(loss.detach().cpu()):
             return loss.detach().cpu()
         loss.backward()
         optimizer.step()
 
         # correct model parameters
-        model.alpha.data.clamp_(0,max=0)
+        #model.alpha.data.clamp_(0,max=0)
         model.beta2.data.clamp_(-float('inf'),max=0)
         model.cs.data.clamp_(0,max=float('inf'))
         model.cr.data.clamp_(0,max=float('inf'))
@@ -124,7 +124,7 @@ def eval_epoch(
             R = torch.abs(circ_mean)
             loss = -torch.log(torch.mean(R))
 
-            print(' (val):\t',"{:.4f}".format(float(loss.detach())),'( R:',"{:.4f}".format(float(torch.mean(R).detach())),')')
+            print(' (val):\t',"{:.10f}".format(float(loss.detach())),'( R:',"{:.10f}".format(float(torch.mean(R).detach())),')')
             return float(loss.cpu())
 
 
@@ -144,13 +144,13 @@ def train(cfg):
     # Build the model and print parameters.
     model = build_model(cfg)
     print('built DESSEO model with parameters:')
-    print('alpha\t',"{:.4f}".format(float(model.alpha.detach())))
-    print('beta1\t',"{:.4f}".format(float(model.beta1.detach())))
-    print('beta2\t',"{:.4f}".format(float(model.beta2.detach())))
-    print('cs\t',"{:.4f}".format(float(model.cs.detach())))
-    print('cr\t',"{:.4f}".format(float(model.cr.detach())))
-    print('cw\t',"{:.4f}".format(float(model.cw.detach())))
-    print('f0\t',"{:.4f}".format(float(model.f0.detach())),'\n')
+    print('alpha\t',"{:.10f}".format(float(model.alpha.detach())))
+    print('beta1\t',"{:.10f}".format(float(model.beta1.detach())))
+    print('beta2\t',"{:.10f}".format(float(model.beta2.detach())))
+    print('cs\t',"{:.10f}".format(float(model.cs.detach())))
+    print('cr\t',"{:.10f}".format(float(model.cr.detach())))
+    print('cw\t',"{:.10f}".format(float(model.cw.detach())))
+    print('f0\t',"{:.10f}".format(float(model.f0.detach())),'\n')
 
     # Construct the optimizer.
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.SOLVER.LR)
@@ -186,13 +186,13 @@ def train(cfg):
             # Build the model and print parameters.
             model = build_model(cfg)
             print('built DESSEO model with parameters:')
-            print('alpha\t',"{:.4f}".format(float(model.alpha.detach())))
-            print('beta1\t',"{:.4f}".format(float(model.beta1.detach())))
-            print('beta2\t',"{:.4f}".format(float(model.beta2.detach())))
-            print('cs\t',"{:.4f}".format(float(model.cs.detach())))
-            print('cr\t',"{:.4f}".format(float(model.cr.detach())))
-            print('cw\t',"{:.4f}".format(float(model.cw.detach())))
-            print('f0\t',"{:.4f}".format(float(model.f0.detach())),'\n')
+            print('alpha\t',"{:.10f}".format(float(model.alpha.detach())))
+            print('beta1\t',"{:.10f}".format(float(model.beta1.detach())))
+            print('beta2\t',"{:.10f}".format(float(model.beta2.detach())))
+            print('cs\t',"{:.10f}".format(float(model.cs.detach())))
+            print('cr\t',"{:.10f}".format(float(model.cr.detach())))
+            print('cw\t',"{:.10f}".format(float(model.cw.detach())))
+            print('f0\t',"{:.10f}".format(float(model.f0.detach())),'\n')
             patience = 0
             best_loss  = float('inf')
             optimizer = torch.optim.Adam(model.parameters(), lr=cfg.SOLVER.LR)
@@ -214,13 +214,13 @@ def train(cfg):
             # Build the model and print parameters.
             model = build_model(cfg)
             print('built DESSEO model with parameters:')
-            print('alpha\t',"{:.4f}".format(float(model.alpha.detach())))
-            print('beta1\t',"{:.4f}".format(float(model.beta1.detach())))
-            print('beta2\t',"{:.4f}".format(float(model.beta2.detach())))
-            print('cs\t',"{:.4f}".format(float(model.cs.detach())))
-            print('cr\t',"{:.4f}".format(float(model.cr.detach())))
-            print('cw\t',"{:.4f}".format(float(model.cw.detach())))
-            print('f0\t',"{:.4f}".format(float(model.f0.detach())),'\n')
+            print('alpha\t',"{:.10f}".format(float(model.alpha.detach())))
+            print('beta1\t',"{:.10f}".format(float(model.beta1.detach())))
+            print('beta2\t',"{:.10f}".format(float(model.beta2.detach())))
+            print('cs\t',"{:.10f}".format(float(model.cs.detach())))
+            print('cr\t',"{:.10f}".format(float(model.cr.detach())))
+            print('cw\t',"{:.10f}".format(float(model.cw.detach())))
+            print('f0\t',"{:.10f}".format(float(model.f0.detach())),'\n')
             patience = 0
             best_loss  = float('inf')
             optimizer = torch.optim.Adam(model.parameters(), lr=cfg.SOLVER.LR)
@@ -229,15 +229,15 @@ def train(cfg):
             best_loss = loss
             patience = 0
             print('\tnew best validation loss found:')
-            print("\t{:.4f}".format(best_loss))
+            print("\t{:.10f}".format(best_loss))
             print('\twith model parameters:')
-            print('\talpha\t',"{:.4f}".format(float(model.alpha.detach())))
-            print('\tbeta1\t',"{:.4f}".format(float(model.beta1.detach())))
-            print('\tbeta2\t',"{:.4f}".format(float(model.beta2.detach())))
-            print('\tcs\t',"{:.4f}".format(float(model.cs.detach())))
-            print('\tcr\t',"{:.4f}".format(float(model.cr.detach())))
-            print('\tcw\t',"{:.4f}".format(float(model.cw.detach())))
-            print('\tf0\t',"{:.4f}".format(float(model.f0.detach())),'\n')
+            print('\talpha\t',"{:.10f}".format(float(model.alpha.detach())))
+            print('\tbeta1\t',"{:.10f}".format(float(model.beta1.detach())))
+            print('\tbeta2\t',"{:.10f}".format(float(model.beta2.detach())))
+            print('\tcs\t',"{:.10f}".format(float(model.cs.detach())))
+            print('\tcr\t',"{:.10f}".format(float(model.cr.detach())))
+            print('\tcw\t',"{:.10f}".format(float(model.cw.detach())))
+            print('\tf0\t',"{:.10f}".format(float(model.f0.detach())),'\n')
         patience += 1
     print('*************************************')
     print('patience elapsed!')
