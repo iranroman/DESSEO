@@ -6,8 +6,29 @@ import numpy as np
 import torch
 import scipy
 import os
+import math
 from torchdiffeq import odeint
 import matplotlib.pyplot as plt
+
+def polar_plot(Rs, out_path):
+    i = 0
+    for d in Rs:
+      ax = plt.subplot(111, polar=True)
+      plt.plot(np.angle(d),np.abs(d),'o',markerfacecolor="None",markeredgecolor='blue',markersize=10)
+      #print(i,np.angle(d))
+      i += 1
+    (markers, stemlines, baseline) = plt.stem(np.angle(np.mean(Rs)),np.abs(np.mean(Rs)))
+    plt.setp(stemlines, linestyle="-", color="red", linewidth=2)
+    plt.setp(markers, color="red",markersize=10,alpha=0.75)
+    ax.set_rticks([0.5, 1])
+    ax.set_yticklabels([])
+    ax.set_xticks([0,np.pi/2,np.pi,3*np.pi/2])
+    plt.ylim([0,1])
+    plt.savefig(os.path.join(out_path,f'circular'))
+    print('theta (rad):\t','{:.3f}'.format(np.mean(np.angle(Rs))))
+    print('theta (deg):\t','{:.3f}'.format(math.degrees(np.mean(np.angle(Rs)))))
+    print('R:\t\t','{:.3f}'.format(np.mean(np.abs(Rs))))
+
 
 def plot_outputs(
     t,
@@ -21,31 +42,33 @@ def plot_outputs(
     Rs = []
     for i in range(len(pred_y)):
 
-        x = inputs[i][1:][np.where(masks[i])[0]]
-        y = np.real(pred_y[i][np.where(masks[i])[0]])
-        y = y / np.std(y)
+        x = inputs[i][:-1][np.where(masks[i])[0]]
+        y = pred_y[i][np.where(masks[i])[0]]
         f = pred_f[i][np.where(masks[i])[0]]
         t_i = t[np.where(masks[i])[0]]
         p = scipy.signal.find_peaks(x)[0]
-        R = np.abs(np.mean(np.exp(1j*np.angle(y[p]))))
+        R = np.mean(np.exp(1j*np.angle(y[p])))
         Rs.append(R)
         plt.figure(figsize=figsize)
         plt.subplot(2,1,1)
-        plt.title('R: {:.3f}'.format(R))
+        plt.title('R: {:.3f}'.format(np.abs(R)))
         plt.plot(t_i,x,label='input')
-        plt.plot(t_i,y,label='DESSEO')
+        plt.plot(t_i,np.real(y)/np.std(np.real(y)),label='DESSEO')
         plt.legend()
-        plt.xlim([0,t_i[-1]])
+        #plt.xlim([0,t_i[-1]])
+        plt.xlim([0,7.5])
         plt.ylabel('A.U.')
         plt.subplot(2,1,2)
         plt.plot(t_i,np.real(f),label='f_dot')
         plt.xlabel('time (s)')
         plt.ylabel('f (Hz)')
         plt.legend()
-        plt.xlim([0,t_i[-1]])
+        #plt.xlim([0,t_i[-1]])
+        plt.xlim([0,7.5])
         plt.savefig(os.path.join(out_path,f'{i}'))
         plt.close()
-    print('R: {:.3f}'.format(np.mean(Rs)))
+
+    polar_plot(Rs,out_path)
 
 def evaluate(
     eval_loader,

@@ -2,6 +2,9 @@
 NUMPY_SEED: 1 # must be greater than 0
 TRAIN:
   ENABLE: True
+  ANTICIPATE:
+    ENABLE: False
+    SAMPS: 8
 TEST:
   ENABLE: True
 DESSEO:
